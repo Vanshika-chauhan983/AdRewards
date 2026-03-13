@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('status', views.health_check),
+    path('status', views.HealthCheckView.as_view()),
     
     # Auth
     path('auth/login', views.LoginView.as_view()),
@@ -26,5 +26,4 @@ urlpatterns = [
     
     # Settings
     path('settings', views.SettingsView.as_view()),
-    path('settings/', views.SettingsView.as_view()),
 ]

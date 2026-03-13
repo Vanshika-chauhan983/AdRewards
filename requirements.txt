@@ -1,0 +1,7 @@
+Django
+djangorestframework
+firebase-admin
+django-cors-headers
+python-dotenv
+gunicorn
+whitenoise
