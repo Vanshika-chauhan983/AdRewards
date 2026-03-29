@@ -1,6 +1,7 @@
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from firebase_admin import auth as firebase_auth
+from .models import UserProfile
 
 class FirebaseAuthentication(BaseAuthentication):
     def authenticate(self, request):
@@ -16,4 +17,15 @@ class FirebaseAuthentication(BaseAuthentication):
         except Exception:
             raise AuthenticationFailed("Invalid or expired token")
 
-        return (decoded_token, None)
+        uid = decoded_token["uid"]
+
+        # ✅ Auto create user if not exists
+        user, created = UserProfile.objects.get_or_create(
+            uid=uid,
+            defaults={
+                "email": decoded_token.get("email"),
+                "phone_number": decoded_token.get("phone_number")
+            }
+        )
+
+        return (user, None)
