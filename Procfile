@@ -1,1 +1,1 @@
-web: python manage.py collectstatic --noinput && gunicorn config.wsgi --log-file - --log-level debug
+web: python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn config.wsgi --log-file - --worker-class sync --log-level debug
