@@ -11,12 +11,10 @@ from .models import Ad, AdView, Transaction, RedemptionRequest
 # -------------------------
 class HealthCheckView(APIView):
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self, request):
-        return Response({
-            "status": "API is working",
-            "timestamp": str(datetime.now())
-        })
+        return JsonResponse({"status": "ok"})
 
 
 # -------------------------
